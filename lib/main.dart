@@ -45,8 +45,8 @@ class MyHomePage extends StatelessWidget {
             Center(
               child: ElevatedButton(
                   onPressed: () {
-                    final _number = _numberController;
-                    getdata(number: _number.toString());
+                    final _number = _numberController.text;
+                    getdata(number: _number);
                   },
                   child: Text('hELLO')),
             ),
