@@ -21,10 +21,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   MyHomePage({super.key});
-  final _numberController = TextEditingController();
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final _numberController = TextEditingController();
+  String first = 'enter a number';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +38,12 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Center(
+              child: Text(
+                first,
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
@@ -44,11 +56,16 @@ class MyHomePage extends StatelessWidget {
             ),
             Center(
               child: ElevatedButton(
-                  onPressed: () {
-                    final _number = _numberController.text;
-                    getdata(number: _number);
-                  },
-                  child: Text('hELLO')),
+                onPressed: () async {
+                  final _number = _numberController.text;
+                  final _result = await getdata(number: _number);
+                  print(_result.text);
+                  setState(() {
+                    first = _result.text ?? 'use another number';
+                  });
+                },
+                child: Text('find number'),
+              ),
             ),
           ],
         ),
